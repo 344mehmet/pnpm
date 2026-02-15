@@ -1,3 +1,21 @@
+# 344mehmet/pnpm
+
+> [!NOTE]
+> Bu depo, **pnpm** projesinin güncel bir çatallamasıdır (fork). TDK standartlarına uygun Türkçe dokümantasyon ve yerel geliştirmeler içermektedir.
+
+## 🇹🇷 Türkçe Özet (TDK Uyumlu)
+pnpm, disk alanından tasarruf sağlayan ve kurulumları hızlandıran gelişmiş bir **Paket Yöneticisidir**.
+
+**Özellikler:**
+*   **Hızlı:** Alternatiflerinden 2 kata kadar daha hızlıdır.
+*   **Verimli:** `node_modules` içindeki dosyalar içerik adresli tek bir depodan bağlanır, disk alanından tasarruf sağlar.
+*   **Monorepo Desteği:** Çoklu paket içeren depolar için mükemmel destek sunar.
+*   **Katı:** Paketler sadece `package.json` dosyasında belirtilen bağımlılıklara erişebilir.
+*   **Kararlı:** `pnpm-lock.yaml` dosyası ile deterministik kurulum sağlar.
+*   **Node.js Sürüm Yöneticisi:** `pnpm env use` komutu ile Node.js sürümlerini yönetebilir.
+
+---
+
 [简体中文](https://pnpm.io/zh/) |
 [日本語](https://pnpm.io/ja/) |
 [한국어](https://pnpm.io/ko/) |
