@@ -173,7 +173,6 @@ export function createNpmResolver (
   }
   const fetch = pMemoize(fetchMetadataFromFromRegistry.bind(null, fetchOpts), {
     cacheKey: (...args) => JSON.stringify(args),
-    maxAge: 1000 * 20, // 20 seconds
   })
   const metaCache = new LRUCache<string, PackageMeta>({
     max: 10000,
@@ -193,16 +192,15 @@ export function createNpmResolver (
       const request = readPkgFromCafs(
         {
           storeDir,
-          verifyStoreIntegrity: true,
+          verifyStoreIntegrity: false,
         },
         filesIndexFile,
         {
-          readManifest: true,
           expectedPkg: { name: peekOpts.name, version: peekOpts.version },
         }
-      ).then(({ manifest, verified }) => {
-        if (!verified) return undefined
-        return manifest
+      ).then(({ bundledManifest }) => {
+        if (!bundledManifest) return undefined
+        return bundledManifest as DependencyManifest
       }).catch(() => undefined)
       peekLockerForPeek.set(filesIndexFile, request)
       return request
@@ -363,7 +361,7 @@ async function resolveNpm (
           projectDir: opts.projectDir,
           lockfileDir: opts.lockfileDir,
           hardLinkLocalPackages: opts.injectWorkspacePackages === true || wantedDependency.injected,
-          update: Boolean(opts.update),
+          update: false,
           saveWorkspaceProtocol: ctx.saveWorkspaceProtocol,
           calcSpecifier: opts.calcSpecifier,
           pinnedVersion: opts.pinnedVersion,
@@ -384,7 +382,7 @@ async function resolveNpm (
           projectDir: opts.projectDir,
           lockfileDir: opts.lockfileDir,
           hardLinkLocalPackages: opts.injectWorkspacePackages === true || wantedDependency.injected,
-          update: Boolean(opts.update),
+          update: false,
           saveWorkspaceProtocol: ctx.saveWorkspaceProtocol,
           calcSpecifier: opts.calcSpecifier,
           pinnedVersion: opts.pinnedVersion,
